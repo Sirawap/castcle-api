@@ -22,10 +22,58 @@
  */
 
 import { Injectable } from '@nestjs/common';
+import { request } from 'node:http';
 
 @Injectable()
 export class AppService {
   getData(): { message: string } {
     return { message: 'Welcome to metadata!' };
+  }
+
+  getAllHashtag(): { message: string; payload: any } {
+    // mock data
+    return {
+      message: 'success message/mock data',
+      payload: [
+        {
+          id: '{_id}',
+          slug: '#castcle',
+          name: 'Castcle',
+          key: 'hashtag.castcle',
+          create: '2021-06-05T15:40:29Z',
+          updated: '2021-06-05T15:40:29Z'
+        }
+      ]
+    };
+    // cant find the db, how it should be
+    // -----------------------------------
+    // fetch the data from db
+    // datas = res
+
+    //   const res = await fetch('url')
+    //   var datas = await res.json();
+    //   // check if GET api is response correctly
+    //   var _message = ''
+    //   _message =  (res.status==200)?'success':'fail'
+    //   // assign data to the payload
+    //   var _payload = []
+    //   for(let i=0;i<datas.payload.length;i++){
+    //     var iterator = datas.payload[i];
+    //     _payload.push(
+    //   {
+    //       "id": iterator.id,
+    //       "slug": iterator.slug,
+    //       "name": iterator.name,
+    //       "key": iterator.key,
+    //       "create": iterator.create,
+    //       "updated": iterator.updated
+    //     }
+    //   );
+    // }
+    // return {
+    //   message : _message,
+    //   payload : _payload,
+    // }
+    //-------------------------------------------
   }
 }

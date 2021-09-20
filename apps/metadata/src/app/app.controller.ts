@@ -21,9 +21,11 @@
  * or have any questions.
  */
 
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, SetMetadata, UseGuards } from '@nestjs/common';
 import { AppService } from './app.service';
 import { CastLogger, CastLoggerOptions } from '@castcle-api/logger';
+import { UnsubscriptionError } from 'rxjs';
+import { RolesGuard } from '../../../../src/roles.guard';
 
 @Controller()
 export class AppController {
@@ -38,4 +40,30 @@ export class AppController {
     this.logger.log('Root');
     return this.appService.getData();
   }
+
+  // get all hashtag
+  @Get('/hashtags')
+  @UseGuards(RolesGuard)
+
+  // Use to switch type of the user
+  @SetMetadata('roles', 'user')
+  // @SetMetadata('roles','admin')
+  // @SetMetadata('roles','tester')
+  getAllHashtag() {
+    this.logger.log('Root');
+    return this.appService.getAllHashtag();
+  }
+
+  @Get('/image')
+  // @UseGuards(RolesGuard)  // uncomment only if u want this to be protected
+  @SetMetadata('roles', 'user')
+  getCat() {
+    return 'Every can get access a photo for free.';
+  }
+
+  // get all hashtag id
+  // @Get("/hashtags")
+  // getOneHashtag(@Param('id') id: string) {
+  //   return this.appService.getOneHashtag(id);
+  // }
 }
